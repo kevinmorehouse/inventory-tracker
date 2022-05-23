@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Items{% endblock title %}
+
+{% block content %}
+<h1 class='text-center pb-3'>All Items</h1>
+{% for item in item_list %}
+<div class='card'>
+  <div class='card-header text-center'>
+    <span class='fw-bold'><a href="{% url 'item_detail' item.pk %}">{{ item.name }}</a></span>
+  </div>
+  <div class='card-body'>
+    <p class='card-text'>{{ item.description }}</p>
+  </div>
+  <div class='card-footer text-center text-muted'>
+    <h6>Quantity: {{ item.quantity|intcomma }}</h6>
+    <a href="{% url 'item_edit' item.pk %}">Edit</a> | <a href="{% url 'item_delete' item.pk %}">Delete</a>
+  </div>
+</div>
+<br />
+{% empty %}
+<p class='text-center'>There are currently no items in your inventory.</p>
+{% endfor %}
+
+{% if deleted_items|length %}
+<p class='text-center'>View <a href="{% url 'deleted_item_list' %}">
+    {{ deleted_items|length }} deleted item{{deleted_items|pluralize }}</a>
+</p>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1>Undelete Item</h1>
+<form action="" method='post'>{% csrf_token %}
+  <p>Are you sure you want to undelete "{{ item.name }}"?</p>
+  <button class='btn btn-success ml-2' type='submit'>Confirm</button>
+</form>
+{% endblock content %}

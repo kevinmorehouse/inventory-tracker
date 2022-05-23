@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+{% block content %}
+<h1 class='text-center pb-3'>Deleted Item Details</h1>
+<div class='card border border-danger border-opacity-25 bg-danger bg-opacity-10'>
+  <div class='card-header text-center border-bottom border-danger border-opacity-25'>
+    <span class='fw-bold'>{{ item.name }}</span>
+  </div>
+  <div class='card-body'>
+    <p class='card-text'>{{ item.description }}</p>
+
+    {% if item.deletion_comment %}
+    <div class="p-3 mb-2 bg-warning bg-gradient text-dark">
+      <h6 class='fw-bold'>Deletion Comments:</h6>
+      <p class='fst-italic fst-light'>{{ item.deletion_comment }}</p>
+    </div>
+    {% endif %}
+
+  </div>
+  <div class='card-footer text-center border-top border-danger border-opacity-25'>
+    <h6>Quantity: {{ item.quantity|intcomma }}</h6>
+    <a href="{% url 'deleted_item_undelete' item.pk %}" type='submit'>Undelete</a>
+  </div>
+</div>
+<br />
+<p class='text-center'>View <a href="{% url 'deleted_item_list' %}">all deleted items</a></p>
+{% endblock content %}
